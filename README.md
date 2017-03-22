@@ -17,5 +17,12 @@ Include a search bar so the user can search news stories according to topic.
 
 ## Day One
 
+### Morning
+
 - Technical spike on how to use the Guardian API.
 - Set up file structure, server, and install Travis as a CI tool.
+
+### Afternoon
+
+- Guardian API retrieves title, url, summary, and thumbnail
+- Daily Mail API retrieves ''
