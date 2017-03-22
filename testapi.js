@@ -13,10 +13,18 @@ request(guardianApiUrl, (err, response, body) => {
 
     articles.response.results.forEach(e => {
       const article = {};
-      article.title = e.webTitle;
-      article.url = e.webUrl;
-      article.sumary = e.blocks.body[0].bodyTextSummary;
-      article.thumbnail = e.fields.thumbnail;
+      if (e.webTitle) {
+        article.title = e.webTitle;
+      }
+      if (e.webUrl) {
+        article.url = e.webUrl;
+      }
+      if (e.blocks && e.blocks.body && e.blocks.body[0].bodyTextSummary) {
+        article.sumary = e.blocks.body[0].bodyTextSummary; //@TODO: add a function here that cuts off the summary
+      }
+      if (e.fields && e.fields.thumbnail) {
+        article.thumbnail = e.fields.thumbnail;
+      }
       output.push(article);
     });
   }
