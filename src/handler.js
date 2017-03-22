@@ -11,7 +11,28 @@ handler.serveStatic = function (request, response, page) {
   });
 };
 
+handler.servePublic = function(request, response){
+  var url = request.url;
+  var extension = url.split('.')[1];
+  var extensionType = {
+    'html': 'text',
+    'css':'text/css',
+    'js':'application/javascript',
+    'ico':'image/x-icon'
+  };
+
+  fs.readFile(path.join(__dirname, '..', 'public', url), function(error, file){
+    if(error||url.includes('..')){
+      handler.serveError(request, response);
+      return;
+    }
+    response.writeHead(200, {'Content-Type':extensionType[extension]});
+    response.end(file);
+  });
+
+};
+
 handler.serveError = function (request, response) {
   response.writeHead(404, {'Content-Type' : 'text/html'});
   response.end('404: Page not found');
-}; 
+};
