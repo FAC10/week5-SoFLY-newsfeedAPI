@@ -3,6 +3,10 @@ const request = require('request');
 const API_KEY = process.env.dailymail_api;
 const url = `https://newsapi.org/v1/articles?source=daily-mail&sortBy=top&apiKey=${API_KEY}`;
 
+const dmail = module.exports = {};
+
+dmail.fetch = (searchterm, callback) => {
+
 request(url, (error, response, body)=>{
   const mail = JSON.parse(body);
   const output = [];
@@ -26,3 +30,5 @@ request(url, (error, response, body)=>{
 
   console.log(output);
 });
+
+};
