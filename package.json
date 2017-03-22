@@ -4,7 +4,7 @@
   "description": "newsfeedapi",
   "main": "index.js",
   "scripts": {
-    "test": "node test/backend/backendtest.js",
+    "test": "node test/tests.js | tap-spec",
     "start": "node src/server.js",
     "devStart": "nodemon src/server"
   },
