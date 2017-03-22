@@ -4,12 +4,17 @@ var path = require('path');
 var handler = module.exports = {};
 
 handler.serveStatic = function (request, response, page) {
-  fs.readFile(path.join(__dirname, '..', 'public', page), function (err, file) {
-    if (err) throw err;
+  const readStream = fs.createReadStream(path.join(__dirname, '..', 'public', page));
+
+  readStream.on('open', function(){
     response.writeHead(200, {'Content-Type': 'text/html'});
-    response.end(file);
+    readStream.pipe(response);
+  });
+  readStream.on('error', function(err){
+    handler.serveError(err);
   });
 };
+
 
 handler.servePublic = function(request, response){
   var url = request.url;
@@ -21,14 +26,16 @@ handler.servePublic = function(request, response){
     'ico':'image/x-icon'
   };
 
-  fs.readFile(path.join(__dirname, '..', 'public', url), function(error, file){
-    if(error||url.includes('..')){
-      handler.serveError(request, response);
-      return;
-    }
+  const readStream = fs.createReadStream(path.join(__dirname, '..', 'public', url));
+
+  readStream.on('open', function(){
     response.writeHead(200, {'Content-Type':extensionType[extension]});
-    response.end(file);
+    readStream.pipe(response);
   });
+  readStream.on('error', function(err){
+    handler.serveError(err);
+  });
+
 
 };
 
