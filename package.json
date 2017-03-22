@@ -4,7 +4,9 @@
   "description": "newsfeedapi",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/backend/backendtest.js",
+    "start": "node src/server.js",
+    "devStart": "nodemon src/server"
   },
   "repository": {
     "type": "git",
