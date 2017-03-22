@@ -29,6 +29,9 @@ request(guardianApiUrl, (err, response, body) => {
     });
   }
 
+  //@TODO: Limit search results to 5-10 articles
+  //@TODO: Add error handling
+
   console.log(output);
   // console.log(body);
 });
