@@ -15,7 +15,7 @@ guardian.cutOffSummary = (string, len = 50) => {
     return words.slice(0, len).join(' ') + '...';
   }
   return string;
-}
+};
 
 /**
  * Builds an article object with 4 key:value pairs
@@ -31,7 +31,7 @@ guardian.buildArticle = (apiObj) => {
     article.url = apiObj.webUrl;
   }
   if (apiObj.blocks && apiObj.blocks.body && apiObj.blocks.body[0].bodyTextSummary) {
-    article.sumary = guardian.cutOffSummary(apiObj.blocks.body[0].bodyTextSummary);
+    article.summary = guardian.cutOffSummary(apiObj.blocks.body[0].bodyTextSummary);
   }
   if (apiObj.fields && apiObj.fields.thumbnail) {
     article.thumbnail = apiObj.fields.thumbnail;
@@ -40,7 +40,7 @@ guardian.buildArticle = (apiObj) => {
   return Object.keys(article).length === 4 ?
   article :
   null;
-}
+};
 
 /**
  * guardian API fetch function
