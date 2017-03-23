@@ -64,7 +64,6 @@ nyTimes.parseApiData = (articles, callback) => {
 nyTimes.fetch = (searchterm, callback) => {
   const address = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?q=';
   const apiKey = process.env.nytimes_api;
-
   const url = address + searchterm + apiKey;
 
   request(url, (err, response, body) => {
@@ -72,7 +71,6 @@ nyTimes.fetch = (searchterm, callback) => {
       callback(err);
       return;
     }
-
     nyTimes.parseApiData(JSON.parse(body), callback);
   });
 
