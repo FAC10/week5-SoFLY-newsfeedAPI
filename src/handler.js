@@ -1,10 +1,12 @@
 var fs = require('fs');
 var path = require('path');
+var _url = require('url');
 
 var handler = module.exports = {};
 
-handler.serveStatic = function (request, response, page) {
-  const readStream = fs.createReadStream(path.join(__dirname, '..', 'public', page));
+handler.serveStatic = (request, response, page) => {
+  const filePath = path.join(__dirname, '..', 'public', page);
+  const readStream = fs.createReadStream(filePath);
 
   readStream.on('open', function(){
     response.writeHead(200, {'Content-Type': 'text/html'});
@@ -13,13 +15,14 @@ handler.serveStatic = function (request, response, page) {
   readStream.on('error', function(err){
     handler.serveError(err);
   });
+
 };
 
 
-handler.servePublic = function(request, response){
-  var url = request.url;
-  var extension = url.split('.')[1];
-  var extensionType = {
+handler.servePublic = (request, response) => {
+  const url = request.url;
+  const extension = url.split('.')[1];
+  const extensionType = {
     'html': 'text',
     'css':'text/css',
     'js':'application/javascript',
@@ -36,10 +39,10 @@ handler.servePublic = function(request, response){
     handler.serveError(err);
   });
 
-
 };
 
 handler.serveError = function (request, response) {
   response.writeHead(404, {'Content-Type' : 'text/html'});
   response.end('404: Page not found');
+
 };

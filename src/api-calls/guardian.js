@@ -43,8 +43,34 @@ guardian.buildArticle = (apiObj) => {
 };
 
 /**
- * guardian API fetch function
+ * Parses data from the Guardian API @TODO add tests
  * @param  {string} searchterm
+ * @param  {Function} callback
+ */
+guardian.parseApiData = (articles, callback) => {
+  const output = [];
+  //
+  if (articles.response && articles.response.results) {
+    articles.response.results.forEach(e => {
+      if (output.length < 5) {
+        const article = guardian.buildArticle(e);
+        if (article) {
+          output.push(article);
+        }
+      }
+    });
+  }
+  if (output.length) {
+    callback(null, output);
+  } else {
+    callback(new Error('No search results'));
+  }
+};
+
+/**
+ * Makes an http get request to the Guardian API.
+ * CODE NOT TESTED: uses external resources.
+ * @param  {string}   searchterm
  * @param  {Function} callback
  */
 guardian.fetch = (searchterm, callback) => {
@@ -55,28 +81,12 @@ guardian.fetch = (searchterm, callback) => {
   const guardianApiUrl = guardianPath + searchterm + endQueries + guardianApiKey;
 
   request(guardianApiUrl, (err, response, body) => {
-    const articles = JSON.parse(body);
-
-    const output = [];
     if (err) {
       callback(err);
+      return;
     }
-    if (articles.response && articles.response.results) {
-      console.log('working');
 
-      articles.response.results.forEach(e => {
-        if (output.length < 5) {
-          const article = guardian.buildArticle(e);
-          if (article) {
-            output.push(article);
-          }
-        }
-      });
-    }
-    if (output.length) {
-      callback(null, output);
-    } else {
-      callback(new Error('No search results'));
-    }
+    guardian.parseApiData(JSON.parse(body), callback);
   });
+
 };
