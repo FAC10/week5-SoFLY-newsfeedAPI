@@ -79,7 +79,7 @@ guardian.fetch = (searchterm, callback) => {
   const guardianApiKey = process.env.guardian_api;
 
   const guardianApiUrl = guardianPath + searchterm + endQueries + guardianApiKey;
-
+  console.log(guardianApiUrl);
   request(guardianApiUrl, (err, response, body) => {
     if (err) {
       callback(err);

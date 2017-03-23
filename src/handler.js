@@ -1,7 +1,8 @@
 var fs = require('fs');
 var path = require('path');
 var _url = require('url');
-
+const guardian = require('./api-calls/guardian.js');
+const nyTimes = require('./api-calls/newyorktimes.js');
 var handler = module.exports = {};
 
 handler.serveStatic = (request, response, page) => {
@@ -37,6 +38,21 @@ handler.servePublic = (request, response) => {
   });
   readStream.on('error', function(err){
     handler.serveError(err);
+  });
+
+};
+handler.search = function (request, response) {
+
+  response.writeHead(200, {'content-type': 'application/json'});
+  var url_parts = _url.parse(request.url, true);
+  var searchQuery = url_parts.query;
+  var arr = [];
+  guardian.fetch(searchQuery.q, function (err, res){
+    arr.push(res);
+    nyTimes.fetch(searchQuery.q, function(err, res){
+      arr.push(res);
+      response.end(JSON.stringify(arr));
+    });
   });
 
 };
