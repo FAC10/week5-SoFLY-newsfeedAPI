@@ -60,6 +60,7 @@ document.getElementById('topic-search')
 
 function buildArticle(articleObj, right) {
   var link = document.createElement('a');
+  link.href = articleObj.url;
 
   var article = document.createElement('article');
   article.className = 'article';
@@ -82,8 +83,13 @@ function buildArticle(articleObj, right) {
     article.appendChild(element);
   });
 
+  return appendtoDom(link, article, right);
+
+}
+
+function appendtoDom(link, article, right){
   var side = right ? document.querySelector('.right') :
                      document.querySelector('.left');
-
-  side.appendChild(article);
+  link.appendChild(article);
+  side.appendChild(link);
 }
