@@ -35,12 +35,12 @@ See project brief [here](https://github.com/foundersandcoders/master-reference/b
 
 ## Tech Stack
 
-Code coverage: Istanbul and CodeCov.io
-Continuous integration: Travis CI
-Automatic deployment: Heroku
-Server: http
-Testing: tape
-Server testing: shot
+- Code coverage: Istanbul and CodeCov.io
+- Continuous integration: Travis CI
+- Automatic deployment: Heroku
+- Server: http
+- Testing: tape
+- Server testing: shot
 
 ## Day One
 ### Morning
