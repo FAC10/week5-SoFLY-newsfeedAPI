@@ -2,11 +2,13 @@ const test = require('tape');
 const shot = require('shot');
 
 const fs = require('fs');
-
+const path = require('path');
 const router = require('./../../src/router');
 
 
 module.exports = () => {
+
+  const htmlFile =   fs.readFileSync(path.join(__dirname, '..','..', 'public', 'index.html'), 'utf-8');
 
   // EXAMPLE OBJECT TO RUN MULTIPLE ROUTE TESTS WITH
   // Each key in the object is the name of a test.
@@ -16,11 +18,40 @@ module.exports = () => {
   // For example in 'route' the object passes in require options of '/' and 'get'
   // and validates the server response of statusCode '200' and type text/html
   const routesToTest = {
-    route:[{url:'/', method:'get'},{statusCode: 200, headers:{'Content-Type':'text/html'}}],
-    test:[{url:'/brokenurl'},{statusCode: 404}],
+    home:[{url:'/', method:'get'},
+      {
+        statusCode: 200,
+        headers: {'Content-Type':'text/html'},
+        payload: htmlFile
+      }],
+    brokenurl:[{url:'/brokenurl'},
+      {
+        statusCode: 404,
+        headers: {'Content-Type':'text/html'},
+        payload: '404: Page not found'
+      }],
+    scriptJS:[{url:'/assets/js/script.js'},
+      {
+        statusCode: 200,
+        headers: {'Content-Type':'application/javascript'},
+        payload: fs.readFileSync(path.join(__dirname, '..','..', 'public', 'assets', 'js', 'script.js'), 'utf-8')
+      }],
+    stylecss:[{url:'/assets/css/style.css'},
+      {
+        statusCode: 200,
+        headers: {'Content-Type':'text/css'},
+        payload: fs.readFileSync(path.join(__dirname, '..','..', 'public', 'assets', 'css', 'style.css'), 'utf-8')
+      }],
+
+    Apiroutes:[{url:'/search?q=trump'},
+      {
+        statusCode: 200,
+        headers: {'Content-Type':'application/json'},
+      }]
+
   };
 
-  testMultipleRoutes(routesToTest);
+  module.export = testMultipleRoutes(routesToTest);
 
 
   /**
