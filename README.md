@@ -3,10 +3,7 @@
 ![Travis badge](https://travis-ci.org/FAC10/week5-SoFLY-newsfeedAPI.svg?branch=master)
 [![codecov](https://codecov.io/gh/FAC10/week5-SoFLY-newsfeedAPI/branch/master/graph/badge.svg)](https://codecov.io/gh/FAC10/week5-SoFLY-newsfeedAPI)
 
-
 See project brief [here](https://github.com/foundersandcoders/master-reference/blob/master/coursebook/week-5/project.md).
-
-Check our project's status on Travis (CI tool) by clicking the badge above.
 
 ## User Story
 
@@ -15,10 +12,10 @@ Check our project's status on Travis (CI tool) by clicking the badge above.
 
 ## Stretch Goal
 
-Include a search bar so the user can search news stories according to topic.
+- Include a search bar so the user can search news stories according to topic.
+- Fronend testing
 
 ## Day One
-
 ### Morning
 
 - Technical spike on how to use the Guardian API.
@@ -26,5 +23,5 @@ Include a search bar so the user can search news stories according to topic.
 
 ### Afternoon
 
-- Guardian API retrieves title, url, summary, and thumbnail
-- Daily Mail API retrieves ''
+- Guardian API retrieves title, url, summary, and thumbnail image.
+- NYT API retrieves title, url, summary, and thumbnail image.
