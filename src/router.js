@@ -20,7 +20,8 @@ module.exports = (req, res) => {
   } else if (api) {
     api(req, res);
 
-  } else if (url.indexOf('/assets') === 0) {
+  } else if (url.indexOf('/assets')===0) {
+    console.log(url);
     handler.servePublic(req, res);
 
   } else {
