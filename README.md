@@ -1,6 +1,7 @@
 # week5-SoFLY-newsfeedAPI
 
 ![Travis badge](https://travis-ci.org/FAC10/week5-SoFLY-newsfeedAPI.svg?branch=master)
+[![codecov](https://codecov.io/gh/FAC10/week5-SoFLY-newsfeedAPI/branch/master/graph/badge.svg)](https://codecov.io/gh/FAC10/week5-SoFLY-newsfeedAPI)
 
 See project brief [here](https://github.com/foundersandcoders/master-reference/blob/master/coursebook/week-5/project.md).
 
