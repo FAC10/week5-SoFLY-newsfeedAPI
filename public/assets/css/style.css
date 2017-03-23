@@ -2,6 +2,7 @@
 body {
   background: silver;
   margin: 2rem;
+  color: white;
 }
 
 #nav_main {
@@ -24,7 +25,6 @@ body {
 
 .left {
   width: 50%;
-  height: 300vh; /*make responsive*/
   float: left;
   background-color: red;
   filter: grayscale(80%);
@@ -33,16 +33,16 @@ body {
 
  .right {
   width: 50%;
-  height: 300vh; /*make responsive*/
   float: right;
   background-color: blue;
   filter: grayscale(80%);
   z-index: -1;
 }
 
-.thumbnail {
-  height: auto;
-  max-width: 30%;
+.article__thumbnail {
+  width: 250px;
+  height: 250px;
+  background-size: cover;
 }
 
 .main_footer {
