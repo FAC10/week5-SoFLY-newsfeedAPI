@@ -2,6 +2,7 @@ const test = require('tape');
 const guardian = require('./../../src/api-calls/guardian.js');
 const nyTimes = require('./../../src/api-calls/newyorktimes.js');
 const guardianTestObj = require('./guardiantestobj.js');
+const nyTimesTestObj = require('./nytimestestobj.js');
 
 module.exports = () => {
   test('is the backend test running?', (t) => {
@@ -34,11 +35,18 @@ module.exports = () => {
     t.deepEqual(expected, result, 'buildArticle returns built object');
     deleteKeyTest(testObj, guardian.buildArticle, t);
 
-    const fakeApi = guardianTestObj[0][0];
-    const apiResult = guardianTestObj[0][1];
-    guardian.parseApiData(fakeApi, (err, result)=> {
-      t.deepEqual(result, apiResult, 'Returns result!!!!');
+    guardianTestObj.forEach((test) => {
+      const fakeApi = test[0];
+      const apiResult = test[1];
+      guardian.parseApiData(fakeApi, (err, result)=> {
+        if(err) {
+          t.deepEqual(err, apiResult, `parseApiData correctly responds to an error`);
+          return;
+        }
+        t.deepEqual(result, apiResult, `input data: ${fakeApi.response.results.length}, output data: ${apiResult.length}, parseApiData correctly responds to data`);
+      });
     });
+
     t.end();
   });
 
@@ -60,6 +68,18 @@ module.exports = () => {
     let result = nyTimes.buildArticle(testObj);
     t.deepEqual(expected, result, 'buildArticle returns built object');
     deleteKeyTest(testObj, nyTimes.buildArticle, t);
+
+    nyTimesTestObj.forEach((test) => {
+      const fakeApi = test[0];
+      const apiResult = test[1];
+      nyTimes.parseApiData(fakeApi, (err, result)=> {
+        if(err) {
+          t.deepEqual(err, apiResult, `parseApiData correctly responds to an error`);
+          return;
+        }
+        t.deepEqual(result, apiResult, `input data: ${fakeApi.response.docs.length}, output data: ${apiResult.length}, parseApiData correctly responds to data`);
+      });
+    });
 
 
     t.end();
