@@ -1,6 +1,7 @@
 const test = require('tape');
 const guardian = require('./../../src/api-calls/guardian.js');
 const nyTimes = require('./../../src/api-calls/newyorktimes.js');
+const guardianTestObj = require('./guardiantestobj.js');
 
 module.exports = () => {
   test('is the backend test running?', (t) => {
@@ -32,6 +33,12 @@ module.exports = () => {
     result = guardian.buildArticle(testObj);
     t.deepEqual(expected, result, 'buildArticle returns built object');
     deleteKeyTest(testObj, guardian.buildArticle, t);
+
+    const fakeApi = guardianTestObj[0][0];
+    const apiResult = guardianTestObj[0][1];
+    guardian.parseApiData(fakeApi, (err, result)=> {
+      t.deepEqual(result, apiResult, 'Returns result!!!!');
+    });
     t.end();
   });
 
@@ -53,6 +60,8 @@ module.exports = () => {
     let result = nyTimes.buildArticle(testObj);
     t.deepEqual(expected, result, 'buildArticle returns built object');
     deleteKeyTest(testObj, nyTimes.buildArticle, t);
+
+
     t.end();
   });
 };
