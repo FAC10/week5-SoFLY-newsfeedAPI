@@ -72,9 +72,9 @@ function buildArticle(articleObj, right) {
   summary.className = 'article__summary';
   summary.innerText = articleObj.summary;
 
-  var thumbnail = document.createElement('img');
+  var thumbnail = document.createElement('div');
   thumbnail.className = 'article__thumbnail';
-  thumbnail.src = articleObj.thumbnail;
+  thumbnail.style.backgroundImage = `url('${articleObj.thumbnail}')`;
 
 
 
