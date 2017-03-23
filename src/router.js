@@ -10,7 +10,7 @@ module.exports = (req, res) => {
   }[url];
 
   const api = {
-    '/search' : handler.search
+    '/news' : handler.search
   }[pathname];
 
   // ROUTES:
