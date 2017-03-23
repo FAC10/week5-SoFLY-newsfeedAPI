@@ -1,3 +1,67 @@
-body{
-  background: red;
+
+body {
+  margin: 0 auto;
+}
+
+#nav_main {
+  height: 5rem;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+.searchbox {
+  width: 30%;
+  margin: 1rem auto;
+}
+
+#searchbar {
+  width: 100%; /*of searchbox*/
+  font-size: 2rem;
+  border-radius: 5px;
+  padding: .5rem;
+}
+
+.left {
+  width: 50%;
+  height: 500vh; /*make responsive*/
+  float: left;
+  background-color: white;
+
+  background-image: url('http://wallpapercave.com/wp/Paxa7aH.jpg');
+
+  background-position: center;
+  filter: grayscale(80%);
+  z-index: -1;
+   }
+
+ .right {
+  width: 50%;
+  height: 500vh; /*make responsive*/
+  float: right;
+  background-color: white;
+   background-image: url('http://az616578.vo.msecnd.net/files/2016/10/24/636129231573002846-291561714_635920627891520484-247334876_american%20flag.jpg');
+   filter: grayscale(80%);
+   z-index: -1;
+}
+
+.articles {
+  margin: 0 auto;
+  padding-top: 5 rem;
+  width: 80%;
+  background-color: black;
+}
+
+.thumbnail {
+  height: auto;
+  max-width: 30%;
+}
+
+/*media query for mob */
+
+@media only screen and (max-width: 600px) {
+  .left, .right {
+    float: none;
+    width: 100%;
+  }
 }
