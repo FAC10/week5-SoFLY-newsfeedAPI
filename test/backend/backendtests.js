@@ -1,5 +1,6 @@
 const test = require('tape');
 const guardian = require('./../../src/api-calls/guardian.js');
+const nyTimes = require('./../../src/api-calls/newyorktimes.js');
 
 module.exports = () => {
   test('is the backend test running?', (t) => {
@@ -30,14 +31,40 @@ module.exports = () => {
     };
     result = guardian.buildArticle(testObj);
     t.deepEqual(expected, result, 'buildArticle returns built object');
-
-    delete testObj.fields;
-    expected = null;
-    result = guardian.buildArticle(testObj);
-    t.deepEqual(expected, result, 'buildArticle with missing key returns null');
-
+    deleteKeyTest(testObj, guardian.buildArticle, t);
     t.end();
+  });
 
+  test('test newyorktimes API', (t) => {
+    let testObj = {
+      headline: { main: 'Test title'},
+      web_url: 'Test url',
+      snippet: 'Test snippet',
+      multimedia: ['', {url: 'Test thumbnail' }]
+    };
 
+    let expected = {
+      title: 'Test title',
+      url: 'Test url',
+      summary: 'Test snippet',
+      thumbnail: 'http://www.nytimes.com/' + 'Test thumbnail'
+    };
+
+    let result = nyTimes.buildArticle(testObj);
+    t.deepEqual(expected, result, 'buildArticle returns built object');
+    deleteKeyTest(testObj, nyTimes.buildArticle, t);
+    t.end();
   });
 };
+
+function deleteKeyTest(obj, func, test) {
+  Object.keys(obj).forEach((props) => {
+    const tempProp = obj[props];
+    delete obj[props];
+    const expected = null;
+    const result = func(obj);
+    test.deepEqual(expected, result, 'buildArticle with missing key returns null');
+
+    obj[props] = tempProp;
+  });
+}
