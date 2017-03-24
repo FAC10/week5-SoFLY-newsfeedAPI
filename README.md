@@ -37,6 +37,8 @@ See project brief [here](https://github.com/foundersandcoders/master-reference/b
 - Server: http
 - Testing: tape
 - Server testing: shot
+- Require the env2 module and invoke it with your own .env file
+- See example.env for example of format.
 
 ## Day One
 
