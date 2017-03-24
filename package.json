@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "env2": "^2.1.1",
-    "request": "^2.81.0",
-    "require": "^2.4.20"
+    "request": "^2.81.0"
   }
 }
