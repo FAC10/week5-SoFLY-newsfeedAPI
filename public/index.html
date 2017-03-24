@@ -9,22 +9,31 @@
 </head>
 <body>
 
-  <nav id="nav_main">
-    <div class="searchbox">
-      <form for="searchbar" id="topic-search">
-        <input  type="text" name="search" placeholder="Search by topic..." id="searchbar">
+  <nav class="top-bar">
+    <div class="search">
+      <form for="searchbar" id="topic-search" class="search__form">
+        <input  type="text" name="search" placeholder="Search by topic..." id="searchbar" class="search__form__input">
       </form>
     </div>
   </nav>
 
-  <!-- Left section -->
-  <div class="left">
-  </div>
+  <main class="mainwrap">
+    <!-- Left section -->
+    <div class="left-image">
+      <div class="uk"></div>
+    </div>
+    <div class="right-image">
+      <div class="us"></div>
+    </div>
+    <div class="left">
+      <img src="/assets/images/buffer.gif" class="buffering" width="50" alt="Articles currently loading" />
+    </div>
 
-
-  <!-- right section -->
-  <div class="right">
-  </div>
+    <!-- right section -->
+    <div class="right">
+      <img src="/assets/images/buffer.gif" class="buffering" width="50" alt="Articles currently loading" />
+    </div>
+  </main>
 
   <script src="/assets/js/script.js"></script>
 </body>

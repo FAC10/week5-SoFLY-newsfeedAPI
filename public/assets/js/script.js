@@ -14,35 +14,49 @@ var fetch = function(url, cb) {
 };
 
 function getArticles (searchterm) {
+  console.log('Searching for', searchterm);
   fetch('/search?q=' + searchterm, (err, res) => {
     if (err) {
       console.log(err.message);
       return;
     }
 
-    // Reset article list
-    document.querySelector('.left').innerHTML = '';
-    document.querySelector('.right').innerHTML = '';
-
     // New York Times
     if (res[1]) {
+      // Reset article list
+      document.querySelector('.right').innerHTML = '';
+      // Build article list
       res[1].forEach(function (article) {
-        buildArticle(article, true);
+        appendToDom(buildArticle(article, true), true);
       });
     }
 
     // Guardian
     if (res[0]) {
+      // Reset article list
+      document.querySelector('.left').innerHTML = '';
+      // Build article list
       res[0].forEach(function (article) {
-        buildArticle(article, false);
+        appendToDom(buildArticle(article, false), false);
       });
     }
   });
 }
 
-// call on page load
-getArticles('brexit');
+// build buffering image
+function buildImage() {
+  const img = document.createElement('img');
 
+  img.src = '/assets/images/buffer.gif';
+  img.alt = 'Articles currently loading';
+  img.cl = 'buffering';
+  img.width = 50;
+
+  return img;
+}
+
+// call on page load
+getArticles('time');
 
 // ****************************************************************************
 // ----------------------------------------------------------------------------
@@ -52,13 +66,17 @@ getArticles('brexit');
 document.getElementById('topic-search')
   .addEventListener('submit', function (e) {
     e.preventDefault();
-    document.querySelector('.left').innerHTML = '';
-    document.querySelector('.right').innerHTML = '';
+
+    // Add buffering image
+    document.querySelector('.right').appendChild(buildImage());
+    document.querySelector('.left').appendChild(buildImage());
+
+    // Add articles
     getArticles(e.target[0].value);
   });
 
 
-function buildArticle(articleObj, right) {
+function buildArticle(articleObj, us) {
   var link = document.createElement('a');
   link.href = articleObj.url;
 
@@ -66,7 +84,7 @@ function buildArticle(articleObj, right) {
   article.className = 'article';
 
   var heading = document.createElement('h1');
-  heading.className = 'article__heading';
+  heading.className = 'article__header';
   heading.innerText = articleObj.title;
 
   var summary = document.createElement('p');
@@ -77,19 +95,20 @@ function buildArticle(articleObj, right) {
   thumbnail.className = 'article__thumbnail';
   thumbnail.style.backgroundImage = `url('${articleObj.thumbnail}')`;
 
+  var flagstrip = document.createElement('div');
+  flagstrip.className = 'article__flagstrip ' + (us ? 'us-strip' : 'uk-strip');
 
-
-  [thumbnail, heading, summary].forEach(function (element) {
+  [thumbnail, flagstrip, heading, summary].forEach(function (element) {
     article.appendChild(element);
   });
 
-  return appendtoDom(link, article, right);
+  link.appendChild(article);
 
+  return link;
 }
 
-function appendtoDom(link, article, right){
+function appendToDom(article, right){
   var side = right ? document.querySelector('.right') :
                      document.querySelector('.left');
-  link.appendChild(article);
-  side.appendChild(link);
+  side.appendChild(article);
 }
