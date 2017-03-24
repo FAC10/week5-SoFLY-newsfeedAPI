@@ -40,6 +40,10 @@ See project brief [here](https://github.com/foundersandcoders/master-reference/b
 - Require the env2 module and invoke it with your own .env file
 - See example.env for example of format.
 
+## Architecture
+![Architecture diagram](public/assets/images/architect_week5.png)
+
+
 ## Day One
 
 - Technical spike on how to use the Guardian API.
