@@ -16,7 +16,10 @@ var fetch = function(url, cb) {
 function getArticles (searchterm) {
   fetch('/search?q=' + searchterm, (err, res) => {
     if (err) {
-      console.log(err.message);
+      document.querySelector('.right').innerHTML = '';
+      document.querySelector('.left').innerHTML = '';
+      document.querySelector('.right').appendChild(noResults('us'));
+      document.querySelector('.left').appendChild(noResults('uk'));
       return;
     }
 
@@ -48,10 +51,24 @@ function buildImage() {
 
   img.src = '/assets/images/buffer.gif';
   img.alt = 'Articles currently loading';
-  img.cl = 'buffering';
+  img.className = 'buffering';
   img.width = 50;
 
   return img;
+}
+
+// build no results div
+function noResults(country) {
+  const h2 = document.createElement('h2');
+  h2.className = 'no-results';
+
+  if (country === 'us') {
+    h2.innerText = 'No results, try a different search.';
+  } else {
+    h2.innerText = 'Sorry, the search returned no results. Have a nice day.';
+  }
+
+  return h2;
 }
 
 // call on page load
@@ -65,6 +82,9 @@ getArticles('time');
 document.getElementById('topic-search')
   .addEventListener('submit', function (e) {
     e.preventDefault();
+
+    document.querySelector('.right').innerHTML = '';
+    document.querySelector('.left').innerHTML = '';
 
     // Add buffering image
     document.querySelector('.right').appendChild(buildImage());
