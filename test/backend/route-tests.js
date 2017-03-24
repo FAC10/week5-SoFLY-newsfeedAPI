@@ -40,13 +40,6 @@ const router = require('./../../src/router');
         headers: {'Content-Type':'text/css'},
         payload: fs.readFileSync(path.join(__dirname, '..','..', 'public', 'assets', 'css', 'style.css'), 'utf-8')
       }],
-
-    apiroutes:[{url:'/search?q=trump'},
-      {
-        statusCode: 200,
-        headers: {'Content-Type':'application/json'},
-      }]
-
   };
 
 
