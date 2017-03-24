@@ -57,6 +57,7 @@ See project brief [here](https://github.com/foundersandcoders/master-reference/b
 - Testing Front-end
 - Create GUI
 - Dom manipulation
+- Refactor API functions
 
 ## Resources
 
