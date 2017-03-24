@@ -81,6 +81,12 @@ a {
   background-image: url('/assets/images/UK.jpg');
 }
 
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  min-height: 300px;
+}
+
 .left {
   width: 50%;
   float: left;
