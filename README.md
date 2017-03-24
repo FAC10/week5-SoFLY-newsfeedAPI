@@ -29,10 +29,6 @@ See project brief [here](https://github.com/foundersandcoders/master-reference/b
 - Include a search bar so the user can search news stories according to topic.
 - Fronend testing
 
-## Architecture
-
-[Img here]
-
 ## Tech Stack
 
 - Code coverage: Istanbul and CodeCov.io
