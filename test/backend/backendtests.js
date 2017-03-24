@@ -14,8 +14,8 @@ const nyTimesTestObj = require('./nytimestestarray.js');
     let result = guardian.cutOffSummary(expected);
     t.equal(expected, result, 'cuttOffSummary function works for under 50 words works');
 
-    expected = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan metus ac varius porttitor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc est turpis, volutpat et velit eget, mattis vulputate nibh. Maecenas ut lacus fermentum, tempus urna ac, molestie lacus. Curabitur vitae accumsan dolor. Duis...';
-    result = guardian.cutOffSummary('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan metus ac varius porttitor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc est turpis, volutpat et velit eget, mattis vulputate nibh. Maecenas ut lacus fermentum, tempus urna ac, molestie lacus. Curabitur vitae accumsan dolor. Duis tempor.');
+    expected = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan metus ac varius porttitor. Orci varius natoque penatibus et magnis...';
+    result = guardian.cutOffSummary('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan metus ac varius porttitor. Orci varius natoque penatibus et magnis dis');
     t.equal(expected, result, 'cuttOffSummary function works for over 50 words works');
 
     let testObj = {
