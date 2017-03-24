@@ -14,7 +14,6 @@ var fetch = function(url, cb) {
 };
 
 function getArticles (searchterm) {
-  console.log('Searching for', searchterm);
   fetch('/search?q=' + searchterm, (err, res) => {
     if (err) {
       console.log(err.message);
