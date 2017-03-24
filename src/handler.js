@@ -3,6 +3,7 @@ const path = require('path');
 const _url = require('url');
 const guardian = require('./api-calls/guardian.js');
 const nyTimes = require('./api-calls/newyorktimes.js');
+const parallel = require('./api-calls/parallel');
 const handler = {};
 
 handler.serveStatic = (request, response, page) => {
@@ -41,26 +42,17 @@ handler.servePublic = (request, response) => {
 };
 
 handler.search = (request, response) => {
-  response.writeHead(200, {'Content-Type': 'application/json'});
   const url_parts = _url.parse(request.url, true);
   let searchQuery = url_parts.query;
   const arr = [];
 
-  guardian.fetch(searchQuery.q, (err, res) => {
+  parallel([guardian.fetch, nyTimes.fetch], searchQuery.q, (err, apiResponseArray) => {
     if (err) {
       handler.serveError(request, response, err);
       return;
     }
-    arr.push(res);
-
-    nyTimes.fetch(searchQuery.q, (err, res) => {
-      if (err) {
-        handler.serveError(request, response, err);
-        return;
-      }
-      arr.push(res);
-      response.end(JSON.stringify(arr));
-    });
+    response.writeHead(200, {'Content-Type': 'application/json'});
+    response.end(JSON.stringify(apiResponseArray));
   });
 
 };
@@ -71,4 +63,4 @@ handler.serveError = (request, response, err) => {
   response.end('404: Page not found');
 
 };
-module.exports=handler ;
+module.exports = handler;
