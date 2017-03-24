@@ -183,6 +183,17 @@ article:hover .article__header {
     margin: 0 auto;
   }
   .article__header {
+    font-size: 1.2rem;
+  }
+  div.us, div.uk, div.left-image, div.right-image {
+    visibility: hidden;
+  }
+  p.article__summary {
+    padding-top: 0;
     font-size: 1rem;
+    height: auto;
+  }
+  article.article {
+    height: auto;
   }
 }
