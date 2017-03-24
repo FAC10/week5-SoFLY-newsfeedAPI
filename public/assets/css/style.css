@@ -39,12 +39,13 @@ a {
 
 .left-image, .right-image {
   height: 10rem;
-  width: 50%;
+  width: 48%;
   background-position: center bottom;
   background-repeat: repeat-x;
   float: left;
 }
 .left-image {
+  margin-right: 4%;
   background-image: url('/assets/images/UK.jpg');
 }
 .right-image {
@@ -87,14 +88,15 @@ a {
 }
 
 .left {
-  width: 50%;
+  width: 48%;
+  margin-right: 4%;
   float: left;
   background-color: #cd132a;
   z-index: -1;
 }
 
  .right {
-  width: 50%;
+  width: 48%;
   float: right;
   background-color: #00247c;
   z-index: -1;
@@ -184,5 +186,9 @@ article:hover .article__header {
   }
   .article__header {
     font-size: 1rem;
+  }
+  nav.top-bar {
+    height: .5rem;
+    margin-top: -3rem;
   }
 }
