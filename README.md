@@ -1,4 +1,4 @@
-# week5-SoFLY-newsfeedAPI: USA vs UK 
+# week5-SoFLY-newsfeedAPI: USA vs UK
 
 ![Travis badge](https://travis-ci.org/FAC10/week5-SoFLY-newsfeedAPI.svg?branch=master)
 [![codecov](https://codecov.io/gh/FAC10/week5-SoFLY-newsfeedAPI/branch/master/graph/badge.svg)](https://codecov.io/gh/FAC10/week5-SoFLY-newsfeedAPI)
@@ -53,3 +53,9 @@ See project brief [here](https://github.com/foundersandcoders/master-reference/b
 - Testing Front-end
 - Create GUI
 - Dom manipulation
+
+## Resources
+
+- [Guardian API documentation](http://open-platform.theguardian.com/documentation/)
+- [New York Times documentation](https://developer.nytimes.com/)
+- [Text overflow with '...' to prevent articles escaping divs](https://developer.mozilla.org/en/docs/Web/CSS/text-overflow)
