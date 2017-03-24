@@ -18,6 +18,17 @@ a {
   width: 30%;
   margin: 0 auto;
 }
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
 
 .search__form__input {
   width: 100%; /*of searchbox*/
