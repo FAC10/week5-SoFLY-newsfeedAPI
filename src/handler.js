@@ -3,7 +3,7 @@ const path = require('path');
 const _url = require('url');
 const guardian = require('./api-calls/guardian.js');
 const nyTimes = require('./api-calls/newyorktimes.js');
-const handler = module.exports = {};
+const handler = {};
 
 handler.serveStatic = (request, response, page) => {
   const filePath = path.join(__dirname, '..', 'public', page);
@@ -71,3 +71,4 @@ handler.serveError = (request, response, err) => {
   response.end('404: Page not found');
 
 };
+module.exports=handler ;

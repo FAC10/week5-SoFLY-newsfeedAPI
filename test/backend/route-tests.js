@@ -1,12 +1,10 @@
 const test = require('tape');
 const shot = require('shot');
-
 const fs = require('fs');
 const path = require('path');
 const router = require('./../../src/router');
 
 
-module.exports = () => {
 
   const htmlFile =   fs.readFileSync(path.join(__dirname, '..','..', 'public', 'index.html'), 'utf-8');
 
@@ -51,7 +49,6 @@ module.exports = () => {
 
   };
 
-  module.export = testMultipleRoutes(routesToTest);
 
 
   /**
@@ -93,4 +90,4 @@ module.exports = () => {
         });
     });
   }
-};
+  module.export = testMultipleRoutes(routesToTest);

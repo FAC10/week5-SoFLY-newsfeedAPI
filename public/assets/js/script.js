@@ -29,7 +29,7 @@ function getArticles (searchterm) {
       document.querySelector('.right').innerHTML = '';
       // Build article list
       res[1].forEach(function (article) {
-        appendToDom(buildArticle(article, true), true);
+        appendToDom(buildArticleElement(article, true), true);
       });
     }
 
@@ -39,7 +39,7 @@ function getArticles (searchterm) {
       document.querySelector('.left').innerHTML = '';
       // Build article list
       res[0].forEach(function (article) {
-        appendToDom(buildArticle(article, false), false);
+        appendToDom(buildArticleElement(article, false), false);
       });
     }
   });
@@ -95,7 +95,7 @@ document.getElementById('topic-search')
   });
 
 
-function buildArticle(articleObj, us) {
+function buildArticleElement(articleObj, us) {
   var link = document.createElement('a');
   link.href = articleObj.url;
 
