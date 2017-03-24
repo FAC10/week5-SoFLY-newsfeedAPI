@@ -21,7 +21,6 @@ module.exports = (req, res) => {
     api(req, res);
 
   } else if (url.indexOf('/assets')===0) {
-    console.log(url);
     handler.servePublic(req, res);
 
   } else {

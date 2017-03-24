@@ -1,24 +1,23 @@
-var fs = require('fs');
-var path = require('path');
-var _url = require('url');
+const fs = require('fs');
+const path = require('path');
+const _url = require('url');
 const guardian = require('./api-calls/guardian.js');
 const nyTimes = require('./api-calls/newyorktimes.js');
-var handler = module.exports = {};
+const handler = module.exports = {};
 
 handler.serveStatic = (request, response, page) => {
   const filePath = path.join(__dirname, '..', 'public', page);
   const readStream = fs.createReadStream(filePath);
 
-  readStream.on('open', function(){
+  readStream.on('open', () => {
     response.writeHead(200, {'Content-Type': 'text/html'});
     readStream.pipe(response);
   });
-  readStream.on('error', function(err){
+  readStream.on('error', (err) => {
     handler.serveError(request, response, err);
   });
 
 };
-
 
 handler.servePublic = (request, response) => {
   const url = request.url;
@@ -31,25 +30,34 @@ handler.servePublic = (request, response) => {
   };
   const readStream = fs.createReadStream(path.join(__dirname, '..', 'public', url));
 
-
-  readStream.on('error', function(err){
+  readStream.on('error', (err) => {
     handler.serveError(request, response, err);
   });
-  readStream.on('open', function(){
+  readStream.on('open', () => {
     response.writeHead(200, {'Content-Type':extensionType[extension]});
     readStream.pipe(response);
   });
 
 };
-handler.search = function (request, response) {
 
+handler.search = (request, response) => {
   response.writeHead(200, {'Content-Type': 'application/json'});
-  var url_parts = _url.parse(request.url, true);
-  var searchQuery = url_parts.query;
-  var arr = [];
-  guardian.fetch(searchQuery.q, function (err, res){
+  const url_parts = _url.parse(request.url, true);
+  let searchQuery = url_parts.query;
+  const arr = [];
+
+  guardian.fetch(searchQuery.q, (err, res) => {
+    if (err) {
+      handler.serveError(request, response, err);
+      return;
+    }
     arr.push(res);
-    nyTimes.fetch(searchQuery.q, function(err, res){
+
+    nyTimes.fetch(searchQuery.q, (err, res) => {
+      if (err) {
+        handler.serveError(request, response, err);
+        return;
+      }
       arr.push(res);
       response.end(JSON.stringify(arr));
     });
@@ -57,7 +65,7 @@ handler.search = function (request, response) {
 
 };
 
-handler.serveError = function (request, response, err) {
+handler.serveError = (request, response, err) => {
   if(err) console.log(err.message);
   response.writeHead(404, {'Content-Type' : 'text/html'});
   response.end('404: Page not found');

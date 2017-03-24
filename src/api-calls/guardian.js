@@ -30,7 +30,8 @@ guardian.buildArticle = (apiObj) => {
   if (apiObj.webUrl) {
     article.url = apiObj.webUrl;
   }
-  if (apiObj.blocks && apiObj.blocks.body && apiObj.blocks.body[0].bodyTextSummary) {
+  if (apiObj.blocks && apiObj.blocks.body &&
+      apiObj.blocks.body[0] && apiObj.blocks.body[0].bodyTextSummary) {
     article.summary = guardian.cutOffSummary(apiObj.blocks.body[0].bodyTextSummary);
   }
   if (apiObj.fields && apiObj.fields.thumbnail) {
@@ -79,7 +80,7 @@ guardian.fetch = (searchterm, callback) => {
   const guardianApiKey = process.env.guardian_api;
 
   const guardianApiUrl = guardianPath + searchterm + endQueries + guardianApiKey;
-  console.log(guardianApiUrl);
+
   request(guardianApiUrl, (err, response, body) => {
     if (err) {
       callback(err);
