@@ -1,3 +1,4 @@
+
 let fakeAPIdata = {
   response: {
     results: [
@@ -199,11 +200,10 @@ const guardianTests = [
     fakeAPIdata3,
     result3
   ],
-  [ 
+  [
     fakeAPIdata4,
     result4
   ]
 
 ];
-
 module.exports = guardianTests;

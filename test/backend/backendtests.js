@@ -1,10 +1,9 @@
 const test = require('tape');
 const guardian = require('./../../src/api-calls/guardian.js');
 const nyTimes = require('./../../src/api-calls/newyorktimes.js');
-const guardianTestObj = require('./guardiantestobj.js');
-const nyTimesTestObj = require('./nytimestestobj.js');
+const guardianTestObj = require('./guardiantestarray.js');
+const nyTimesTestObj = require('./nytimestestarray.js');
 
-module.exports = () => {
   test('is the backend test running?', (t) => {
     t.pass('yes, backend test running!');
     t.end();
@@ -84,7 +83,6 @@ module.exports = () => {
 
     t.end();
   });
-};
 
 function deleteKeyTest(obj, func, test) {
   Object.keys(obj).forEach((props) => {
