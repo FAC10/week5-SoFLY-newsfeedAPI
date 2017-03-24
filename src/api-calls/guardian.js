@@ -9,7 +9,7 @@ const guardian = module.exports = {};
  * @param  {number} len number of words
  * @return {string} string containing < len words
  */
-guardian.cutOffSummary = (string, len = 50) => {
+guardian.cutOffSummary = (string, len = 20) => {
   const words = string.split(' ');
   if (words.length >= len) {
     return words.slice(0, len).join(' ') + '...';
