@@ -10,7 +10,7 @@ module.exports = () => {
     t.end();
   });
 
-  test('test guardian API', (t) => {
+  test('test handler response to guardian API', (t) => {
     let expected = 'Hi Finn Hi hi hi hi';
     let result = guardian.cutOffSummary(expected);
     t.equal(expected, result, 'cuttOffSummary function works for under 50 words works');
@@ -50,7 +50,7 @@ module.exports = () => {
     t.end();
   });
 
-  test('test newyorktimes API', (t) => {
+  test('test handler response to newyorktimes API', (t) => {
     let testObj = {
       headline: { main: 'Test title'},
       web_url: 'Test url',
