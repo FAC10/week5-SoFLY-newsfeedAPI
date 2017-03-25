@@ -38,10 +38,36 @@ const routesToTest = {
       headers: {'Content-Type':'text/css'},
       payload: fs.readFileSync(path.join(__dirname, '..','..', 'public', 'assets', 'css', 'style.css'), 'utf-8')
     }],
+  assets:[{url:'/assets', method:'get'},
+    {
+      payload: '404: Page not found',
+      statusCode: 404
+    }],
+  fileOutsideAssets:[{url:'/assets/../../src/server.js', method:'get'},
+    {
+      payload: '404: Page not found',
+      statusCode: 404
+    }],
+  connectionType:[{url:'/assets/images/EAGLY.png', method:'get'},
+    {
+      statusCode: 200
+    }],
+  badFile:[{url:'/assets/images/e.png', method:'get'},
+    {
+      statusCode: 404
+    }],
+  contentTypeInvalid:[{url:'/assets/images/test.exe', method:'get'},
+    {
+      statusCode: 404
+    }],
   api:[{url: '/search?q=trump'},
     {
       statusCode: 200,
       headers: {'Content-Type':'application/json'}
+    }],
+  apiNoResults:[{url: '/search?q=jfdjfsdjfl'},
+    {
+      statusCode: 404,
     }],
 };
 
@@ -70,6 +96,9 @@ function testRoute ([reqOptions, resOptions], name = '') {
           // second level options (headers[content-type], etc.)
           if (typeof resOptions[option] === 'object') {
             Object.keys(resOptions[option]).forEach(innerOption => {
+              const result = res[option][innerOption].length > 30 ?
+                                  'Correct result' :
+                                  res[option];
               t.equal(res[option][innerOption], resOptions[option][innerOption],
                 `${option}[${innerOption}] = ${res[option][innerOption]}`
               );
@@ -77,9 +106,12 @@ function testRoute ([reqOptions, resOptions], name = '') {
             return;
           }
 
+          const result = res[option].length > 30 ? 'Correct result' :
+          res[option];
+
           // first level objects (statusCode, etc.)
           t.equal(res[option], resOptions[option],
-            `${option} = ${res[option]}`);
+            `${option} = ${result}`);
 
         });
         t.end();
