@@ -2,9 +2,6 @@ const env = require('env2')('./.env');
 const request = require('request');
 const nyTimes = module.exports = {};
 
-
-
-
 /**
  * Builds an article object with 4 key:value pairs
  * @param  {object} apiObj nyTimes API
@@ -62,16 +59,10 @@ nyTimes.parseApiData = (articles, callback) => {
  * @param  {Function} callback
  */
 nyTimes.fetch = (searchterm, callback) => {
-  const address = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?q=';
   const apiKey = process.env.nytimes_api;
-  const url = address + searchterm + apiKey;
-
+  const url = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${searchterm}${apiKey}`;
   request(url, (err, response, body) => {
-    if (err) {
-      callback(err);
-      return;
-    }
+    if (err) return callback(err);
     nyTimes.parseApiData(JSON.parse(body), callback);
   });
-
 };

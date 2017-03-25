@@ -11,9 +11,13 @@ handler.serveStatic = (request, response, page) => {
   const readStream = fs.createReadStream(filePath);
 
   readStream.on('open', () => {
-    response.writeHead(200, {'Content-Type': 'text/html'});
     readStream.pipe(response);
   });
+
+  readStream.on('open', () => {
+    response.writeHead(200, {'Content-Type': 'text/html'});
+  });
+
   readStream.on('error', (err) => {
     handler.serveError(request, response, err);
   });
@@ -24,31 +28,51 @@ handler.servePublic = (request, response) => {
   const url = request.url;
   const extension = url.split('.')[1];
   const extensionType = {
-    'html': 'text',
     'css':'text/css',
     'js':'application/javascript',
-    'ico':'image/x-icon'
+    'ico':'image/x-icon',
+    'jpg':'image/jpeg',
+    'png':'image/png',
+    'gif':'image/gif'
   };
-  const readStream = fs.createReadStream(path.join(__dirname, '..', 'public', url));
 
-  readStream.on('error', (err) => {
-    handler.serveError(request, response, err);
-  });
-  readStream.on('open', () => {
-    response.writeHead(200, {'Content-Type':extensionType[extension]});
-    readStream.pipe(response);
-  });
+  if (extensionType[extension]) {
+    const readStream = fs.createReadStream(path.join(__dirname, '..', 'public', url));
+
+    readStream.on('open', () => {
+      readStream.pipe(response);
+    });
+
+    let headerNotSet = true;
+    readStream.on('data', () => {
+      if (headerNotSet) {
+        headerNotSet = false;
+        response.writeHead(200, {'Content-Type':extensionType[extension]});
+      }
+    });
+
+    readStream.on('error', (err) => {
+      handler.serveError(request, response, err);
+    });
+
+  } else {
+    handler.serveError(request, response, new Error(`Incorrect Content-Type: ${extension || 'none'}`));
+  }
 
 };
 
 handler.search = (request, response) => {
   const url_parts = _url.parse(request.url, true);
-  let searchQuery = url_parts.query;
+  const searchQuery = url_parts.query;
   const arr = [];
 
+  let headersNotSet = true;
   parallel([guardian.fetch, nyTimes.fetch], searchQuery.q, (err, apiResponseArray) => {
     if (err) {
-      handler.serveError(request, response, err);
+      if (headersNotSet) {
+        handler.serveError(request, response, err);
+        headersNotSet = false;
+      }
       return;
     }
     response.writeHead(200, {'Content-Type': 'application/json'});
@@ -63,4 +87,5 @@ handler.serveError = (request, response, err) => {
   response.end('404: Page not found');
 
 };
+
 module.exports = handler;

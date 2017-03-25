@@ -44,7 +44,7 @@ guardian.buildArticle = (apiObj) => {
 };
 
 /**
- * Parses data from the Guardian API @TODO add tests
+ * Parses data from the Guardian API
  * @param  {string} searchterm
  * @param  {Function} callback
  */
@@ -75,19 +75,11 @@ guardian.parseApiData = (articles, callback) => {
  * @param  {Function} callback
  */
 guardian.fetch = (searchterm, callback) => {
-  const guardianPath = 'https://content.guardianapis.com/search?q=';
-  const endQueries = '&show-blocks=body,main&show-fields=thumbnail';
-  const guardianApiKey = process.env.guardian_api;
-
-  const guardianApiUrl = guardianPath + searchterm + endQueries + guardianApiKey;
-
-  request(guardianApiUrl, (err, response, body) => {
-    if (err) {
-      callback(err);
-      return;
-    }
-
+  const apiKey = process.env.guardian_api;
+  const guardianPath =
+  `https://content.guardianapis.com/search?q=${searchterm}&show-blocks=body,main&show-fields=thumbnail${apiKey}`;
+  request(guardianPath, (err, response, body) => {
+    if (err) return callback(err);
     guardian.parseApiData(JSON.parse(body), callback);
   });
-
 };
